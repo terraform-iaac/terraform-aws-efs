@@ -1,4 +1,3 @@
-
 resource "aws_efs_file_system" "efs_storage" {
   creation_token = "${var.efs_name}-efs"
   performance_mode = "generalPurpose"
