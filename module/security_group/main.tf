@@ -1,4 +1,3 @@
-
 resource "aws_security_group" "nfs_sg" {
   name = "${var.sg_name}-sg"
   vpc_id = var.vpc_id
