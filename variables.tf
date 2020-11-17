@@ -66,7 +66,7 @@ variable "create_sg_rules" {
 variable "create_efs_ap" {
   description = "Create custom permissions to root of EFS"
   type = bool
-  default = true
+  default = false
 }
 
 # Tags
