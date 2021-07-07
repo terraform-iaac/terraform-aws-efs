@@ -5,6 +5,9 @@ Terraform module used to create AWS EFS. With simple syntax.
 
 ## Usage
 
+**NOTE:** You should add `whitelist_cidr` or `whitelist_sg` option, becuase by default module doesn't create any security group rules, thus EFS has restricted access.
+
+**Example of usage:**
 ```terraform
 module "ec2" {
   source = "terraform-iaac/terraform-aws-efs/aws"
@@ -35,7 +38,7 @@ module "ec2" {
 | vpc\_id | VPC ID will be used by EFS | `string` | n/a | yes |
 | subnet\_ids | VPC Subnet IDs where efs mount target will be created | `list(string)` | n/a |  yes |
 | whitelist\_cidr | IP CIDRs to whitelist access for EFS  | `list(string)` | `[]` | no |
-| whitelist\_sg | Security Group IDs to whitelist access for EFS | `list(string)` | `[]` | yes |
+| whitelist\_sg | Security Group IDs to whitelist access for EFS | `list(string)` | `[]` | no |
 | performance\_mode\_mode | The file system performance mode. Can be either "generalPurpose" or "maxIO" | `string` | `generalPurpose` | no |
 | throughput\_mode | Throughput mode for the file system. Valid values: bursting, provisioned. When using provisioned, also set provisioned_throughput_in_mibps | `string` | `bursting` | no |
 | provisioned\_throughput\_in\_mibps | The throughput, measured in MiB/s, that you want to provision for the file system. Only applicable with throughput_mode set to provisioned | `string` | n/a | no |
