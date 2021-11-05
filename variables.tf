@@ -3,10 +3,9 @@ variable "name" {
   type        = string
 }
 # Tags
-variable "env_name" {
-  description = "Value for Env Tag"
-  type        = string
-  default     = "base"
+variable "tags" {
+  description = "AWS tags"
+  default     = {}
 }
 
 # VPC

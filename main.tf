@@ -1,18 +1,20 @@
 # Create EFS
 resource "aws_efs_file_system" "efs_storage" {
-  creation_token                  = "${var.name}-efs"
+  creation_token = "${var.name}-efs"
 
   performance_mode                = var.performance_mode_mode
   provisioned_throughput_in_mibps = var.provisioned_throughput_in_mibps
   throughput_mode                 = var.throughput_mode
 
-  encrypted                       = var.encrypted
+  encrypted  = var.encrypted
   kms_key_id = var.kms_key_id
 
-  tags = {
-    Name = var.name
-    Env  = var.env_name
-  }
+  tags = merge(
+    {
+      Name = var.name
+    },
+    var.tags
+  )
 }
 
 # Create Mount Targets for EFS
@@ -67,10 +69,12 @@ resource "aws_security_group" "nfs_sg" {
     }
   }
 
-  tags = {
-    Name = var.name
-    Env  = var.env_name
-  }
+  tags = merge(
+    {
+      Name = var.name
+    },
+    var.tags
+  )
 }
 
 resource "aws_efs_access_point" "permissions" {
@@ -86,8 +90,10 @@ resource "aws_efs_access_point" "permissions" {
     }
   }
 
-  tags = {
-    Name = var.name
-    Env  = var.env_name
-  }
+  tags = merge(
+    {
+      Name = var.name
+    },
+    var.tags
+  )
 }

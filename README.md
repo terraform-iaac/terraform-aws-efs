@@ -34,7 +34,7 @@ module "ec2" {
 | Name | Description | Type | Default |  Required |
 |------|-------------|------|---------|:--------:|
 | name  | Prefix name for SG, EFS | `string` | n/a | yes |
-| env\_name  | Value for `Env` Tag | `string` | `base` | no |
+| tags  | AWS tags | `map` | `{}` | no |
 | vpc\_id | VPC ID will be used by EFS | `string` | n/a | yes |
 | subnet\_ids | VPC Subnet IDs where efs mount target will be created | `list(string)` | n/a |  yes |
 | whitelist\_cidr | IP CIDRs to whitelist access for EFS  | `list(string)` | `[]` | no |
