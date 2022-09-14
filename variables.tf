@@ -56,6 +56,22 @@ variable "kms_key_id" {
   type        = string
   default     = null
 }
+variable "lifecycle_policy" {
+  description = "A file system lifecycle policy object with optional transition_to_ia and transition_to_primary_storage_class"
+  type        = map(string)
+  default     = {}
+
+  validation {
+    condition = length(setsubtract(keys(var.lifecycle_policy), [
+      "transition_to_ia", "transition_to_primary_storage_class"
+      ])) == 0 && length(distinct(concat([
+        "AFTER_7_DAYS", "AFTER_14_DAYS", "AFTER_30_DAYS", "AFTER_60_DAYS", "AFTER_90_DAYS"
+        ], compact([lookup(var.lifecycle_policy, "transition_to_ia", null)])))) == 5 && length(distinct(concat([
+        "AFTER_1_ACCESS"
+    ], compact([lookup(var.lifecycle_policy, "transition_to_primary_storage_class", null)])))) == 1
+    error_message = "Lifecycle Policy variable map contains invalid key-value arguments."
+  }
+}
 
 # Rules
 variable "create_efs_ap" {
